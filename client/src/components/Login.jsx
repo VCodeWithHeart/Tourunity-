@@ -43,7 +43,7 @@ export default function Login() {
       notify?.success(response?.message);
       console.log("response", response);
       localStorage.setItem("token", JSON.stringify(response?.jwtToken));
-      login();
+      login({ name: response?.name, email: response?.email });
     } else {
       notify?.error(response?.message);
     }

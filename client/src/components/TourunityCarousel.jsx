@@ -31,7 +31,7 @@ const TourunityCarousel = ({ slides }) => {
               {/* Left Column */}
               <div className="text-gray-900 space-y-6 lg:pr-12">
                 <p className="text-xs uppercase font-semibold tracking-wider text-gray-700">
-                  LONELY PLANET PRESENTS
+                  TOURUNITY PRESENTS
                 </p>
                 <h1 className="text-5xl md:text-6xl font-extrabold leading-tight">
                   {slide?.mainTitle}
@@ -107,8 +107,8 @@ const TourunityCarousel = ({ slides }) => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="z-20 absolute left-8 bg-transparent text-gray-800 hover:opacity-100 disabled:opacity-50" />
-      <CarouselNext className="z-20 absolute right-8 bg-transparent text-gray-800 hover:opacity-100 disabled:opacity-50" />
+      <CarouselPrevious className="z-20 absolute left-4 sm:left-8 h-10 w-10 md:h-11 md:w-11 bg-white/80 hover:bg-white text-gray-800 hover:text-green-600 border border-gray-200/80 shadow-md backdrop-blur-sm transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed" />
+      <CarouselNext className="z-20 absolute right-4 sm:right-8 h-10 w-10 md:h-11 md:w-11 bg-white/80 hover:bg-white text-gray-800 hover:text-green-600 border border-gray-200/80 shadow-md backdrop-blur-sm transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed" />
     </Carousel>
   );
 };

@@ -1,172 +1,230 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
-import { Facebook, Instagram, Youtube, Twitter } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Youtube, Plane } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { notify } from "@/components/toast/notify";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const { isAuthenticated, logout } = useAuth();
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    notify.success("Thank you for subscribing to Tourunity!");
+    setEmail("");
+  };
+
   return (
-    <footer className="bg-gray-950 text-gray-400 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-
-        <div className="space-y-6">
-          <div className="flex flex-col items-start">
-            <h2 className="text-white text-3xl font-extrabold font-serif">Tourunity</h2>
-            <p className="text-gray-500 text-sm mt-1">For Explorers Everywhere</p>
-          </div>
-
-          <div>
-            <h3 className="text-white text-xs font-semibold mb-3 uppercase tracking-wider">
-              Follow Us
-            </h3>
-            <div className="flex space-x-3">
+    <footer className="bg-gray-950 text-gray-400 border-t border-gray-800/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        {/* Main Footer Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+          
+          {/* Column 1: Brand & Tagline */}
+          <div className="space-y-4">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2.5 text-2xl font-bold tracking-tight text-white group"
+            >
+              <Plane className="h-6 w-6 text-green-500 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              <span>Tourunity</span>
+            </Link>
+            <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
+              Discover breathtaking destinations, join group tours, and create
+              unforgettable travel memories together.
+            </p>
+            {/* Social Media Icons */}
+            <div className="pt-2 flex items-center gap-3">
               <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-600 text-white hover:bg-blue-700 transition duration-300"
                 aria-label="Facebook"
+                className="w-9 h-9 rounded-lg bg-gray-900 border border-gray-800/80 flex items-center justify-center text-gray-400 hover:text-green-400 hover:border-green-500/50 hover:bg-gray-900/90 transition-all duration-200 hover:-translate-y-0.5"
               >
-                <Facebook size={16} />
+                <Facebook size={18} />
               </a>
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 flex items-center justify-center rounded-full bg-pink-500 text-white hover:bg-pink-600 transition duration-300"
                 aria-label="Instagram"
+                className="w-9 h-9 rounded-lg bg-gray-900 border border-gray-800/80 flex items-center justify-center text-gray-400 hover:text-green-400 hover:border-green-500/50 hover:bg-gray-900/90 transition-all duration-200 hover:-translate-y-0.5"
               >
-                <Instagram size={16} />
-              </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 flex items-center justify-center rounded-full bg-red-600 text-white hover:bg-red-700 transition duration-300"
-                aria-label="Youtube"
-              >
-                <Youtube size={16} />
+                <Instagram size={18} />
               </a>
               <a
                 href="https://x.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-500 text-white hover:bg-blue-600 transition duration-300"
                 aria-label="X (Twitter)"
+                className="w-9 h-9 rounded-lg bg-gray-900 border border-gray-800/80 flex items-center justify-center text-gray-400 hover:text-green-400 hover:border-green-500/50 hover:bg-gray-900/90 transition-all duration-200 hover:-translate-y-0.5"
               >
-                <Twitter size={16} />
+                <Twitter size={18} />
+              </a>
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="w-9 h-9 rounded-lg bg-gray-900 border border-gray-800/80 flex items-center justify-center text-gray-400 hover:text-green-400 hover:border-green-500/50 hover:bg-gray-900/90 transition-all duration-200 hover:-translate-y-0.5"
+              >
+                <Youtube size={18} />
               </a>
             </div>
           </div>
 
-          <div className="space-y-2">
-            <h3 className="text-white text-xs font-semibold uppercase tracking-wider">
-              Subscribe
+          {/* Column 2: Explore */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-200 mb-4">
+              Explore
             </h3>
-            <p className="text-blue-500 text-base font-semibold">
-              Get 20% off your first order.
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <Link
+                  to="/"
+                  className="hover:text-green-400 transition-colors duration-200"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/destinations"
+                  className="hover:text-green-400 transition-colors duration-200"
+                >
+                  Destinations
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/tour-groups"
+                  className="hover:text-green-400 transition-colors duration-200"
+                >
+                  Tour Groups
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/about"
+                  className="hover:text-green-400 transition-colors duration-200"
+                >
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/contact"
+                  className="hover:text-green-400 transition-colors duration-200"
+                >
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Account */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-200 mb-4">
+              Account
+            </h3>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <Link
+                  to="/wishlist"
+                  className="hover:text-green-400 transition-colors duration-200"
+                >
+                  Wishlist
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/bookings"
+                  className="hover:text-green-400 transition-colors duration-200"
+                >
+                  My Bookings
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/profile"
+                  className="hover:text-green-400 transition-colors duration-200"
+                >
+                  Profile
+                </Link>
+              </li>
+              <li>
+                {isAuthenticated ? (
+                  <button
+                    onClick={logout}
+                    className="hover:text-green-400 transition-colors duration-200 text-left cursor-pointer"
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="hover:text-green-400 transition-colors duration-200"
+                  >
+                    Login / Signup
+                  </Link>
+                )}
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: Newsletter */}
+          <div className="space-y-4">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-200 mb-4">
+              Stay Updated
+            </h3>
+            <p className="text-sm text-gray-400 leading-relaxed">
+              Subscribe to get curated destination guides and special group tour updates.
             </p>
-            <div className="flex flex-col gap-2">
+            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2.5">
               <Input
                 type="email"
-                placeholder="Email address"
-                className="bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="bg-gray-900 border-gray-800 text-white placeholder:text-gray-500 focus-visible:ring-green-500 focus-visible:border-green-500 h-10 text-sm"
               />
-              <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold">
-                Subscribe now
+              <Button
+                type="submit"
+                className="bg-green-600 hover:bg-green-700 text-white font-medium h-10 px-5 cursor-pointer transition-colors duration-200 shrink-0"
+              >
+                Subscribe
               </Button>
-            </div>
-            <p className="text-gray-500 text-xs">
-              Subscribe to Lonely Planet newsletters and promotions. <br />
-              Read our <Link to="/privacy-policy" className="text-blue-500 hover:underline">Privacy Policy</Link>. {/* Link for internal policy */}
-            </p>
-          </div>
-        </div>
-
-        <div>
-          <h3 className="text-white text-xs font-semibold mb-4 uppercase tracking-wider">
-            Top Destinations
-          </h3>
-          <ul className="space-y-2 text-sm">
-            <li><Link to="/destinations/new-york-city" className="hover:text-white transition-colors">New York City</Link></li>
-            <li><Link to="/destinations/paris" className="hover:text-white transition-colors">Paris</Link></li>
-            <li><Link to="/destinations/italy" className="hover:text-white transition-colors">Italy</Link></li>
-            <li><Link to="/destinations/costa-rica" className="hover:text-white transition-colors">Costa Rica</Link></li>
-            <li><Link to="/destinations/japan" className="hover:text-white transition-colors">Japan</Link></li>
-            <li><Link to="/destinations/usa" className="hover:text-white transition-colors">USA</Link></li>
-            <li><Link to="/destinations/amsterdam" className="hover:text-white transition-colors">Amsterdam</Link></li>
-            <li><Link to="/destinations/portugal" className="hover:text-white transition-colors">Portugal</Link></li>
-            <li><Link to="/destinations/cancun" className="hover:text-white transition-colors">Cancun</Link></li>
-            <li><Link to="/destinations/chicago" className="hover:text-white transition-colors">Chicago</Link></li>
-            <li><Link to="/destinations/england" className="hover:text-white transition-colors">England</Link></li>
-            <li><Link to="/destinations/tokyo" className="hover:text-white transition-colors">Tokyo</Link></li>
-            <li><Link to="/destinations/france" className="hover:text-white transition-colors">France</Link></li>
-            <li><Link to="/destinations/thailand" className="hover:text-white transition-colors">Thailand</Link></li>
-            <li><Link to="/destinations/ireland" className="hover:text-white transition-colors">Ireland</Link></li>
-            <li><Link to="/destinations/rome" className="hover:text-white transition-colors">Rome</Link></li>
-            <li><Link to="/destinations/london" className="hover:text-white transition-colors">London</Link></li>
-            <li><Link to="/destinations/los-angeles" className="hover:text-white transition-colors">Los Angeles</Link></li>
-            <li><Link to="/destinations/mexico" className="hover:text-white transition-colors">Mexico</Link></li>
-            <li><Link to="/destinations/san-francisco" className="hover:text-white transition-colors">San Francisco</Link></li>
-            <li className="pt-2"><Link to="/destinations" className="text-blue-500 hover:underline text-xs">Explore More Destinations</Link></li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="text-white text-xs font-semibold mb-4 uppercase tracking-wider">
-            Travel Interests
-          </h3>
-          <ul className="space-y-2 text-sm">
-            <li><Link to="/interests/adventure-travel" className="hover:text-white transition-colors">Adventure Travel</Link></li>
-            <li><Link to="/interests/art-and-culture" className="hover:text-white transition-colors">Art and Culture</Link></li>
-            <li><Link to="/interests/beaches-coasts-islands" className="hover:text-white transition-colors">Beaches, Coasts and Islands</Link></li>
-            <li><Link to="/interests/family-holidays" className="hover:text-white transition-colors">Family Holidays</Link></li>
-            <li><Link to="/interests/festivals" className="hover:text-white transition-colors">Festivals</Link></li>
-            <li><Link to="/interests/food-and-drink" className="hover:text-white transition-colors">Food and Drink</Link></li>
-            <li><Link to="/interests/road-trips" className="hover:text-white transition-colors">Road Trips</Link></li>
-            <li><Link to="/interests/sustainable-travel" className="hover:text-white transition-colors">Sustainable Travel</Link></li>
-            <li><Link to="/interests/travel-on-a-budget" className="hover:text-white transition-colors">Travel on a Budget</Link></li>
-            <li><Link to="/interests/wildlife-and-nature" className="hover:text-white transition-colors">Wildlife and Nature</Link></li>
-          </ul>
-        </div>
-
-        <div className="flex flex-col gap-8">
-          <div>
-            <h3 className="text-white text-xs font-semibold mb-4 uppercase tracking-wider">
-              Shop
-            </h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/shop/destination-guides" className="hover:text-white transition-colors">Destination Guides</Link></li>
-              <li><Link to="/shop/lonely-planet-kids" className="hover:text-white transition-colors">Lonely Planet Kids</Link></li>
-              <li><Link to="/shop/lonely-planet-shop" className="hover:text-white transition-colors">Lonely Planet Shop</Link></li>
-              <li><Link to="/shop/non-english-guides" className="hover:text-white transition-colors">Non-English Guides</Link></li>
-            </ul>
+            </form>
           </div>
 
-          <div>
-            <h3 className="text-white text-xs font-semibold mb-4 uppercase tracking-wider">
-              About Us
-            </h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/about-us/lonely-planet" className="hover:text-white transition-colors">About Lonely Planet</Link></li>
-              <li><Link to="/contact-us" className="hover:text-white transition-colors">Contact Us</Link></li>
-              <li><Link to="/trade-advertising" className="hover:text-white transition-colors">Trade and Advertising</Link></li>
-              <li><Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-              <li><Link to="/terms-conditions" className="hover:text-white transition-colors">Terms and Conditions</Link></li>
-              <li><Link to="/work-for-us" className="hover:text-white transition-colors">Work For Us</Link></li>
-              <li><Link to="/write-for-us" className="hover:text-white transition-colors">Write For Us</Link></li>
-              <li><Link to="/sitemap" className="hover:text-white transition-colors">Sitemap</Link></li>
-              <li><Link to="/consumer-health-data-privacy-policy" className="hover:text-white transition-colors">Consumer Health Data Privacy Policy</Link></li>
-              <li><Link to="/cookie-settings" className="hover:text-white transition-colors">Cookie Settings</Link></li>
-              <li><Link to="/do-not-sell-share-my-personal-information" className="hover:text-white transition-colors">Do Not Sell or Share My Personal Information</Link></li>
-            </ul>
-          </div>
         </div>
 
+        {/* Bottom Bar */}
+        <div className="mt-12 lg:mt-16 pt-8 border-t border-gray-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
+          <p>© {new Date().getFullYear()} Tourunity. All rights reserved.</p>
+          <div className="flex items-center gap-6">
+            <Link
+              to="/privacy"
+              className="hover:text-gray-300 transition-colors duration-200"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              to="/terms"
+              className="hover:text-gray-300 transition-colors duration-200"
+            >
+              Terms & Conditions
+            </Link>
+          </div>
+        </div>
       </div>
     </footer>
   );
 };
 
-export default Footer;
+export default Footer;

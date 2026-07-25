@@ -2,37 +2,50 @@ export const navbarDestinations = [
   {
     title: "Zurich",
     href: "/destinations/zurich",
+    imageSrc:
+      "https://images.unsplash.com/photo-1620563092215-0fbc6b55cfc5?w=300&auto=format&fit=crop&q=80",
     description:
-      "Switzerland’s largest city, renowned for its pristine lakes, vibrant arts scene, and stunning Alpine views."
+      "Lake & alpine views."
   },
   {
     title: "Phuket",
     href: "/destinations/phuket",
+    imageSrc:
+      "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=300&auto=format&fit=crop&q=80",
     description:
-      "Thailand’s tropical paradise, famous for its white-sand beaches, lively nightlife, and crystal-clear waters."
+      "Tropical beaches & nightlife."
   },
   {
     title: "Paris",
     href: "/destinations/paris",
+    imageSrc:
+      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=300&auto=format&fit=crop&q=80",
     description:
-      "The romantic capital of France, celebrated for its iconic Eiffel Tower, world-class museums, and charming cafes."
+      "Capital of art & culture."
   },
   {
     title: "Barcelona",
     href: "/destinations/barcelona",
+    imageSrc:
+      "https://images.unsplash.com/photo-1578912996078-305d92249aa6?w=300&auto=format&fit=crop&q=80",
     description:
-      "A Spanish gem known for its unique Gaudí architecture, Mediterranean beaches, and vibrant street life."
+      "Gaudí art & coastal vibes."
   },
   {
     title: "Kyoto",
     href: "/destinations/kyoto",
+    imageSrc:
+      "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=300&auto=format&fit=crop&q=80",
     description:
-      "Japan’s ancient city, famed for its tranquil temples, cherry blossoms, and centuries-old traditions."
+      "Ancient temples & gardens."
   },
   {
     title: "Rome",
     href: "/destinations/rome",
+    imageSrc:
+      "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=300&auto=format&fit=crop&q=80",
     description:
-      "Italy’s historic capital, where ancient ruins, Renaissance art, and delicious cuisine converge."
+      "Historic ruins & fine dining."
   }
 ];
+
