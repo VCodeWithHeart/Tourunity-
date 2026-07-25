@@ -55,7 +55,7 @@ const login = async (req, res) => {
       email,
     });
   } catch (err) {
-    res.status(500).json({ message: "Internal server error", success: true });
+    res.status(500).json({ message: "Internal server error", success: false });
   }
 };
 
