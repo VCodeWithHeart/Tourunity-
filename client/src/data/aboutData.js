@@ -1,102 +1,98 @@
-// aboutData.js
 import {
-  Footprints,
-  Handshake,
-  Headset,
-  LayoutGrid,
-  Lightbulb,
-  StickyNote,
-  UnplugIcon,
+  Compass,
   Users,
+  MapPin,
+  ShieldCheck,
+  Globe,
+  Heart,
+  Leaf,
+  Sparkles,
+  Calendar,
+  Headset,
 } from "lucide-react";
 
-// Why Choose Us items
-const whyChooseUsItems = [
-  {
-    iconClass: StickyNote,
-    title: "Personalized Planning",
-    description:
-      "Tailored itineraries to suit your group's unique needs and preferences. We understand that every group is different, so we customize every aspect of your journey.",
-    bgColorClass: "bg-blue-500",
-  },
-  {
-    iconClass: Handshake,
-    title: "Hassle-Free Reunions",
-    description:
-      "We handle all the logistics, so you can focus on reconnecting and making memories. From transportation to accommodation, we've got you covered.",
-    bgColorClass: "bg-indigo-400",
-  },
-  {
-    iconClass: Headset,
-    title: "24/7 Support",
-    description:
-      "Our dedicated team is always here to ensure your journey is smooth and stress-free. Day or night, we're just a call away to assist you.",
-    bgColorClass: "bg-red-500",
-  },
-  {
+export const impactStats = [
+  { label: "Destinations Covered", value: "50+", icon: Globe },
+  { label: "Happy Travelers", value: "10,000+", icon: Users },
+  { label: "Curated Group Tours", value: "250+", icon: Compass },
+  { label: "Community Rating", value: "4.9 ★", icon: Sparkles },
+];
 
-    iconClass: UnplugIcon,
-    title: "Passion for Connection",
+export const howItWorksSteps = [
+  {
+    step: "01",
+    title: "Discover Destinations",
     description:
-      "We're driven by the joy of bringing people together through shared travel experiences. Our passion is creating bonds that last beyond the journey.",
-    bgColorClass: "bg-teal-500",
+      "Explore handpicked travel destinations, detailed itineraries, and authentic local experiences tailored for groups.",
+    icon: Compass,
+  },
+  {
+    step: "02",
+    title: "Join or Host a Tour",
+    description:
+      "Connect with fellow explorers, join curated tour groups, or create your own group trip with friends and family.",
+    icon: Users,
+  },
+  {
+    step: "03",
+    title: "Travel & Create Memories",
+    description:
+      "Embark on smooth, hassle-free adventures with local expert guidance, shared moments, and 24/7 support.",
+    icon: MapPin,
   },
 ];
 
-// FeatureCards for "What We Offer"
-const featureCards = [
+export const coreValues = [
   {
-    icon: LayoutGrid,
-    title: "Curated Tours",
+    icon: Heart,
+    title: "Community & Connection",
     description:
-      "From serene beaches to vibrant cities, our handpicked destinations cater to every traveler's dream.",
-    features: [
-      "Personalized itineraries for each group",
-      "Hidden gems and local experiences",
-      "All-inclusive packages",
-    ],
-    iconBgColor: "bg-blue-100",
-    iconColor: "blue-400",
+      "We build meaningful trips that bring friends, families, and solo travelers closer together.",
+  },
+  {
+    icon: Compass,
+    title: "Authentic Exploration",
+    description:
+      "We prioritize immersive, local experiences over cliché tourist itineraries.",
+  },
+  {
+    icon: Leaf,
+    title: "Sustainable Tourism",
+    description:
+      "We respect local communities, preserve nature, and encourage eco-friendly travel practices.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Safety & Trust",
+    description:
+      "Every tour is supported by verified guides, transparent bookings, and dedicated assistance.",
+  },
+];
+
+export const whyChooseUsItems = [
+  {
+    icon: Calendar,
+    title: "Personalized Group Itineraries",
+    description:
+      "Flexible, group-focused trip plans designed to suit different ages, tastes, and travel paces.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Hassle-Free Logistics",
+    description:
+      "From itinerary coordination to local guides, we manage details so you can enjoy the journey.",
+  },
+  {
+    icon: Headset,
+    title: "24/7 Traveler Support",
+    description:
+      "Our team is always on call to assist you before, during, and after your trip.",
   },
   {
     icon: Users,
-    title: "Reunion-Focused Experiences",
+    title: "Verified Local Guides",
     description:
-      "Specially designed group tours that make reuniting with friends and family seamless and memorable.",
-    features: [
-      "Custom reunion activities",
-      "Group accommodation arrangements",
-      "Shared experience planning",
-    ],
-    iconBgColor: "bg-red-100",
-    iconColor: "red-400",
-  },
-  {
-    icon: Lightbulb,
-    title: "Local Expertise",
-    description:
-      "Our partnerships with local guides ensure authentic, insider experiences that go beyond the typical tourist trail.",
-    features: [
-      "Native guide connections",
-      "Cultural immersion activities",
-      "Local cuisine experiences",
-    ],
-    iconBgColor: "bg-teal-100",
-    iconColor: "teal-400",
-  },
-  {
-    icon: Footprints,
-    title: "Sustainable Travel",
-    description:
-      "We're committed to eco-friendly practices, supporting local communities, and preserving the beauty of the places we visit.",
-    features: [
-      "Carbon-neutral travel options",
-      "Community-based tourism",
-      "Wildlife conservation support",
-    ],
-    iconBgColor: "bg-green-100",
-    iconColor: "green-600",
+      "Partnered with expert native guides for genuine cultural immersion and safety.",
   },
 ];
 
-export { featureCards, whyChooseUsItems };
