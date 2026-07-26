@@ -42,7 +42,8 @@ export default function Signup() {
     console.log("response", response);
     if (response?.success) {
       notify?.success(response?.message);
-      navigate("/");
+      localStorage.setItem("verificationEmail", data.email);
+      navigate("/verify-email", { state: { email: data.email } });
     } else {
       notify?.error(response?.message);
     }

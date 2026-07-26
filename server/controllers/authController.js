@@ -1,8 +1,8 @@
 const bcrypt = require("bcrypt");
-const crypto = require("crypto");
 const UserModel = require("../models/user");
 const jwt = require("jsonwebtoken");
 const { sendOtp } = require("../services/emailService");
+const { generateOtp } = require("../utils/otpHelper");
 
 // signup controller
 const signup = async (req, res) => {
@@ -10,15 +10,34 @@ const signup = async (req, res) => {
     const { name, email, password } = req.body;
     const user = await UserModel.findOne({ email });
     if (user) {
-      return res
-        .status(409)
-        .json({ message: "User already exists, you can login", success: false });
+      if (user.emailVerified) {
+        return res
+          .status(409)
+          .json({ message: "Email already registered. Please login.", success: false, emailVerified: true });
+      } else {
+        // generate new OTP (6 digits)
+        const { otp, hashedOtp, otpExpiresAt } = await generateOtp();
+
+        user.otp = hashedOtp;
+        user.otpExpiresAt = otpExpiresAt;
+        if (name) user.name = name;
+        if (password) {
+          user.password = await bcrypt.hash(password, 10);
+        }
+        await user.save();
+        await sendOtp(email, otp);
+
+        return res.status(200).json({
+          message: "An unverified account already exists. We have sent a new verification code to your email.",
+          success: true,
+          emailVerified: false,
+          email: user.email,
+        });
+      }
     }
 
     // generate OTP (6 digits)
-    const otp = crypto.randomInt(100000, 999999).toString();
-    const hashedOtp = await bcrypt.hash(otp, 10);
-    const otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiry
+    const { otp, hashedOtp, otpExpiresAt } = await generateOtp();
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -35,7 +54,12 @@ const signup = async (req, res) => {
     await sendOtp(email, otp);
 
     await userModel.save();
-    res.status(201).json({ message: "Signup successful. Please verify your email with the OTP sent.", success: true });
+    res.status(201).json({
+      message: "Signup successful. Please verify your email with the OTP sent.",
+      success: true,
+      emailVerified: false,
+      email: userModel.email,
+    });
   } catch (err) {
     console.error("Internal Server Error in signup:", err);
     res.status(500).json({
@@ -109,15 +133,31 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await UserModel.findOne({ email });
-    const message = "Auth failed: email or password is wrong";
     if (!user) {
-      return res.status(403).json({ message, success: false });
+      return res.status(403).json({ message: "Account does not exist. Please sign up first.", success: false });
     }
 
     const isPassEqual = await bcrypt.compare(password, user.password);
 
     if (!isPassEqual) {
-      return res.status(403).json({ message, success: false });
+      return res.status(403).json({ message: "Incorrect password. Please try again.", success: false });
+    }
+
+    if (!user.emailVerified) {
+      // Generate and send a fresh OTP so the user has a valid code when redirected to verify
+      const { otp, hashedOtp, otpExpiresAt } = await generateOtp();
+
+      user.otp = hashedOtp;
+      user.otpExpiresAt = otpExpiresAt;
+      await user.save();
+      await sendOtp(user.email, otp);
+
+      return res.status(403).json({
+        message: "Your email is not verified yet. We have sent a new verification code to your inbox.",
+        success: false,
+        emailVerified: false,
+        email: user.email,
+      });
     }
 
     const jwtToken = jwt.sign(
@@ -142,8 +182,44 @@ const login = async (req, res) => {
   }
 };
 
+// resendOtp controller
+const resendOtp = async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ message: "Email is required", success: false });
+    }
+
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found", success: false });
+    }
+
+    if (user.emailVerified) {
+      return res.status(400).json({ message: "Your email is already verified", success: false });
+    }
+
+    const { otp, hashedOtp, otpExpiresAt } = await generateOtp();
+
+    user.otp = hashedOtp;
+    user.otpExpiresAt = otpExpiresAt;
+    await user.save();
+
+    await sendOtp(email, otp);
+
+    return res.status(200).json({
+      message: "A new verification code has been sent to your email.",
+      success: true,
+    });
+  } catch (error) {
+    console.error("Error in resendOtp:", error);
+    return res.status(500).json({ message: "Internal server error", success: false });
+  }
+};
+
 module.exports = {
   signup,
   verifyOtp,
   login,
+  resendOtp,
 };

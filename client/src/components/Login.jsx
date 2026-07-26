@@ -26,6 +26,7 @@ import { notify } from "./toast/notify";
 import { useAuth } from "@/context/AuthContext";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm({
     resolver: zodResolver(loginSchema),
@@ -44,6 +45,10 @@ export default function Login() {
       console.log("response", response);
       localStorage.setItem("token", response?.jwtToken);
       login({ name: response?.name, email: response?.email });
+    } else if (response?.emailVerified === false) {
+      notify?.warning(response?.message);
+      localStorage.setItem("verificationEmail", data.email);
+      navigate("/verify-email", { state: { email: data.email } });
     } else {
       notify?.error(response?.message);
     }
